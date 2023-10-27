@@ -278,7 +278,7 @@ class Ask_Question
     void get_Ask_Question(int id_f,int id_t,string Q0,string q)
     {
         fstream A_Q ("Question.txt",ios::out|ios::in|ios::app);
-        A_Q<<id_f<<" "<<id_t<<'\n'<<0<<Q0<<q;
+        A_Q<<id_f<<" "<<id_t<<'\n'<<0<<Q0<<q<<'\n';
         A_Q.close();
 
     }
@@ -298,7 +298,7 @@ class List_System_User
     {
         for (int i = 0; i <co; i++)
         {
-            cout<<x[i].username<<'\n';
+            cout<<x[i].username<<" "<<x[i].ID_user<<'\n';
         }
         
     }
@@ -372,17 +372,22 @@ int main()
             return 0;
         }
         
-        int m2;cin>>m2;
+        int m2;
+        while(cin>>m2)
+        {
        //cout<<ob3.return_id();
        if (m2==1)
        {
         download_Question(co_Question,Question0);
         ob4.search1(co_Question,ob3.return_id(),Question0);
+        menu2();
+        
        }
        if (m2==2)
        {
         download_Question(co_Question,Question0);
         ob5.search2(co_Question,ob3.return_id(),Question0);
+        menu2();
        }
        if (m2==3)
        {
@@ -390,7 +395,8 @@ int main()
         ob6.search3(co_Question,ob3.return_id(),Question0);
         if (ob6.get_posation_Q()==-1)
         {
-            return 0;
+            menu2();
+            continue;
         }
         else
         {
@@ -410,6 +416,7 @@ int main()
             answer0.close();
             Question0[ob6.get_posation_Q()].tast=1;
             upload_Question(co_Question,Question0);
+            menu2();
         }
        }  
        if (m2==4)
@@ -419,7 +426,8 @@ int main()
          //int Po=ob7.get_posation_Q_D();
          if (ob7.get_posation_Q_D()==-1)
          {
-            return 0;
+            menu2();
+            continue;
          }
          else
          {
@@ -429,6 +437,7 @@ int main()
             ofstream lol("counter_Question.txt");
             lol<<co_Question;
             lol.close();
+            menu2();
 
          }
        }
@@ -440,19 +449,24 @@ int main()
            if (num_Q==ob3.return_id())
            {
             cout<<"You can not ask yourself\n";
-            return 0;
+            menu2();
+            continue;
            }
-           
+           else
+           {
            cout<<"Write Your question\n";
            cin>>Ask0;
            getline(cin,ask);ask.push_back('?');
            //cout<<Ask0<<ask;
            ob8.get_Ask_Question(ob3.return_id(),num_Q,Ask0,ask);
            ob8.cou_Q(co_Question);
+           menu2();
+           }
        }
        if(m2==6)
        {
             ob9.display(i,x);
+            menu2();
        }
        if (m2==7)
        {
@@ -465,14 +479,14 @@ int main()
             string c=answer[i].answer_Question;
             cout<<v<<c<<'\n';
         }
-        
+        menu2();
        }
        if (m2==8)
        {
         return 0;
        }
        
-       
+        }
     }
     return 0;
 }
